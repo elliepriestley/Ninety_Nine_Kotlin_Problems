@@ -59,20 +59,19 @@ val uniqueList = alphabetList.toSet().toList()
 
 val inputString: String = "aaaabccaadeeee"
 
-fun pack(inputString: String): List<String> {
+fun pack(inputString: String): List<List<String>> {
     var startIndexCounter = 0
     var finishIndexCounter = 1
-    val resultList: MutableList<String> = mutableListOf()
+    val resultList: MutableList<List<String>> = mutableListOf()
     inputString.forEachIndexed { index, c ->
         // if index is not 0 and if character is same as previous character
         // increment the finishIndexCounter by 1
         if (index > 0 && c == inputString[index -1]) {
-            println("The element at $index is the same as previous index. $c is the same as ${inputString.elementAtOrNull(index -1)}")
             finishIndexCounter ++
         } else {
             // if the character is not the same as previous character
             // add the subsection to the resultsList (start - finish index counter)
-            resultList.add(inputString.slice(startIndexCounter until finishIndexCounter))
+            resultList.add(listOf(inputString.slice(startIndexCounter until finishIndexCounter)))
             // reset the start index to begin at current index
             startIndexCounter = index
             // reset finish index to begin at current index +1
@@ -81,9 +80,8 @@ fun pack(inputString: String): List<String> {
         }
     }
     // add remaining character to the resultList as a new list
-    resultList.add(inputString.slice(startIndexCounter until finishIndexCounter))
+    resultList.add(listOf(inputString.slice(startIndexCounter until finishIndexCounter)))
     return resultList
-
 }
 
 fun pack2(inputString: String): Any {
